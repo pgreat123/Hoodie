@@ -1,236 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOODIE | AI Crypto Analytics</title>
 
-    <title>Token AI Predictor</title>
+<link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<div class="background"></div>
+<canvas id="particles"></canvas>
 
 <header>
 
-    <div class="logo">
-        TOKEN<span>AI</span>
-    </div>
+<div class="logo">
+<h1>HOODIE</h1>
+<p>AI Crypto Prediction Platform</p>
+</div>
 
-    <button class="connect">
-        Connect Wallet
-    </button>
+<div class="priceCard">
+
+<h2 id="price">$0.00</h2>
+
+<span id="change">Loading...</span>
+
+</div>
 
 </header>
 
-<section class="hero">
+<section class="stats">
 
-    <h1>
-        Predict The Future
-        <span>Before Everyone Else.</span>
-    </h1>
+<div class="glass">
 
-    <p>
-        AI powered market predictions for your favorite token.
-        Fast. Accurate. Beautiful.
-    </p>
+<h3>Market Cap</h3>
 
-</section>
+<p id="marketcap">$0</p>
 
-<section class="price-card">
+</div>
 
-    <div class="price">
+<div class="glass">
 
-        <h2>$HOODIE</h2>
+<h3>Liquidity</h3>
 
-        <h1 id="price">
-            $0.00241
-        </h1>
+<p id="liquidity">$0</p>
 
-    </div>
+</div>
 
-    <div class="change positive">
-        ▲ +4.28%
-    </div>
+<div class="glass">
 
-</section>
+<h3>24H Volume</h3>
 
-<section class="tabs">
+<p id="volume">$0</p>
 
-    <button class="active" data-time="5m">5 Minutes</button>
+</div>
 
-    <button data-time="15m">15 Minutes</button>
+<div class="glass">
 
-    <button data-time="1h">1 Hour</button>
+<h3>Buys / Sells</h3>
 
-    <button data-time="1d">Daily</button>
+<p id="transactions">0 / 0</p>
 
-    <button data-time="1m">Monthly</button>
+</div>
 
 </section>
 
-<section class="prediction-card">
+<section class="chartContainer">
 
-    <div class="badge bullish">
-        BULLISH
-    </div>
+<div class="glass">
 
-    <h2 id="prediction-title">
-        Strong Buy Signal
-    </h2>
+<h2>Live Price Chart</h2>
 
-    <p id="prediction-text">
-        Momentum remains strong with increasing buying pressure.
-        AI expects continuation toward higher resistance.
-    </p>
+<canvas id="priceChart"></canvas>
 
-    <div class="stats">
-
-        <div class="stat">
-
-            <small>Confidence</small>
-
-            <h3 id="confidence">
-                92%
-            </h3>
-
-        </div>
-
-        <div class="stat">
-
-            <small>Expected Move</small>
-
-            <h3 id="move">
-                +8.6%
-            </h3>
-
-        </div>
-
-        <div class="stat">
-
-            <small>Risk</small>
-
-            <h3>
-                Low
-            </h3>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
-<section class="confidence">
+<section class="prediction">
 
-    <h2>
-        AI Confidence
-    </h2>
+<div class="glass">
 
-    <div class="progress">
+<h2>AI Prediction Engine</h2>
 
-        <div class="bar" style="width:92%"></div>
+<div class="tabs">
 
-    </div>
+<button class="tab active" data-tab="5m">5M</button>
 
-    <span>92% Accurate</span>
+<button class="tab" data-tab="15m">15M</button>
 
-</section>
+<button class="tab" data-tab="1h">1H</button>
 
-<section class="reasons">
+<button class="tab" data-tab="1d">Daily</button>
 
-    <h2>
-        Why Bullish?
-    </h2>
+<button class="tab" data-tab="1m">Monthly</button>
 
-    <ul>
+</div>
 
-        <li>✔ Rising Buy Volume</li>
+<div id="predictionText">
 
-        <li>✔ Strong Liquidity</li>
+Loading Prediction...
 
-        <li>✔ Positive Market Structure</li>
+</div>
 
-        <li>✔ Whale Accumulation</li>
-
-        <li>✔ Bullish Momentum</li>
-
-    </ul>
+</div>
 
 </section>
 
-<section class="history">
+<section class="dashboard">
+
+<div class="glass">
+
+<h2>Whale Activity</h2>
+
+<ul id="whales"></ul>
+
+</div>
+
+<div class="glass">
+
+<h2>Market Sentiment</h2>
+
+<div class="meter">
+
+<div id="sentimentFill"></div>
+
+</div>
+
+<p id="sentimentText"></p>
+
+</div>
+
+<div class="glass">
 
 <h2>Prediction History</h2>
 
-<table>
+<ul id="history"></ul>
 
-<tr>
+</div>
 
-<th>Time</th>
+</section>
 
-<th>Prediction</th>
+<section class="timer">
 
-<th>Result</th>
+<div class="glass">
 
-<th>Accuracy</th>
+<h2>Next Prediction</h2>
 
-</tr>
+<h1 id="countdown">05:00</h1>
 
-<tr>
-
-<td>5M</td>
-
-<td>Bullish</td>
-
-<td>✅</td>
-
-<td>94%</td>
-
-</tr>
-
-<tr>
-
-<td>15M</td>
-
-<td>Bearish</td>
-
-<td>✅</td>
-
-<td>89%</td>
-
-</tr>
-
-<tr>
-
-<td>1H</td>
-
-<td>Bullish</td>
-
-<td>❌</td>
-
-<td>78%</td>
-
-</tr>
-
-</table>
+</div>
 
 </section>
 
 <footer>
 
-<p>
-Powered by AI • Not Financial Advice
-</p>
+Powered by DexScreener • HOODIE AI
 
 </footer>
 
+<script src="particles.js"></script>
+<script src="chart.js"></script>
+<script src="api.js"></script>
 <script src="script.js"></script>
 
 </body>
